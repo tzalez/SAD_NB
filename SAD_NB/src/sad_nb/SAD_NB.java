@@ -12,21 +12,19 @@ public class SAD_NB {
 
     public static void main(String[] args) {
         GestorFichero.getGestorFichero().escribirFichero(GestorFichero.getGestorFichero().leerFichero("src/fichero/tweetSentiment.dev.csv"), "dev.arff");
-        Instances data = GestorFichero.getGestorFichero().cargarInstancias("src/fichero/dev.arff");
-        System.out.println(data.numInstances());
-        System.out.println(data.attribute(data.classIndex()).name());
+        Instances dataDev = GestorFichero.getGestorFichero().cargarInstancias("src/fichero/dev.arff");
+        System.out.println(dataDev.numInstances());
+        System.out.println(dataDev.attribute(dataDev.classIndex()).name());
         
         GestorFichero.getGestorFichero().escribirFichero(GestorFichero.getGestorFichero().leerFichero("src/fichero/tweetSentiment.test_blind.csv"), "test.arff");
-        Instances data2 = GestorFichero.getGestorFichero().cargarInstancias("src/fichero/test.arff");
-        System.out.println(data2.numInstances());
-        System.out.println(data2.attribute(data.classIndex()).name());
+        Instances dataTest = GestorFichero.getGestorFichero().cargarInstancias("src/fichero/test.arff");
+        System.out.println(dataTest.numInstances());
+        System.out.println(dataTest.attribute(dataTest.classIndex()).name());
         
         GestorFichero.getGestorFichero().escribirFichero(GestorFichero.getGestorFichero().leerFichero("src/fichero/tweetSentiment.train.csv"), "train.arff");
-        Instances data3 = GestorFichero.getGestorFichero().cargarInstancias("src/fichero/train.arff");
-        System.out.println(data3.numInstances());
-        System.out.println(data3.attribute(data.classIndex()).name());
+        Instances dataTrain = GestorFichero.getGestorFichero().cargarInstancias("src/fichero/train.arff");
+        System.out.println(dataTrain.numInstances());
+        System.out.println(dataTrain.attribute(dataTrain.classIndex()).name());
         
-        
-    
     }
 }
