@@ -25,52 +25,57 @@ import weka.core.Instances;
  * @author jimy
  */
 public class GestorFichero {
+
     private static GestorFichero gestorFichero;
-    private FileReader ficheroARFF=null;
+    private FileReader ficheroARFF = null;
     private static String firstLine = "";
-    private GestorFichero(){
+
+    private GestorFichero() {
     }
-    public static GestorFichero getGestorFichero(){
-        if(gestorFichero==null){
-            gestorFichero= new GestorFichero();
+
+    public static GestorFichero getGestorFichero() {
+        if (gestorFichero == null) {
+            gestorFichero = new GestorFichero();
         }
         return gestorFichero;
     }
-    
-    private void abrirFichero(String dirFichero){
+
+    private void abrirFichero(String dirFichero) {
         try {
             ficheroARFF = new FileReader(dirFichero);
         } catch (FileNotFoundException ex) {
-            System.out.println("Error: Revisar la dirección del fichero --> "+dirFichero);
+            System.out.println("Error: Revisar la dirección del fichero --> " + dirFichero);
         }
     }
-    
-    private void cerrarFichero(){
+
+    private void cerrarFichero() {
         try {
             ficheroARFF.close();
         } catch (IOException ex) {
             System.out.println("Error al cerrar el fichero.");
         }
     }
-    
-    public Instances cargarInstancias (String dirFichero){
+
+    public Instances cargarInstancias(String dirFichero) {
         try {
             abrirFichero(dirFichero);
-            if(ficheroARFF!=null){
+            if (ficheroARFF != null) {
                 Instances instancias = new Instances(ficheroARFF);
                 asignarClase(instancias);
                 ficheroARFF.close();
                 return instancias;
-            }else
+            } else {
                 return null;
+            }
         } catch (IOException ex) {
-            System.out.println("Error al cargar las instancias del fichero."+ex.getMessage().toString());
+            System.out.println("Error al cargar las instancias del fichero." + ex.getMessage().toString());
             return null;
         }
     }
-    private void asignarClase(Instances data){
+
+    private void asignarClase(Instances data) {
         for (int i = 0; i < data.numInstances(); i++) {
-            if(data.attribute(i).name().equals(" class")){
+            if (data.attribute(i).name().equals(" class")) {
                 data.setClassIndex(i);
                 break;
             }
@@ -85,11 +90,11 @@ public class GestorFichero {
             f = new FileReader(dir);
             BufferedReader b = new BufferedReader(f);
             firstLine = b.readLine();
-            firstLine=firstLine.replace("\"", "");
+            firstLine = firstLine.replace("\"", "");
             while ((cadena = b.readLine()) != null) {
                 cadena = cadena.replace("\"", "");
                 String arrayCad[] = cadena.split(",");
-                if (arrayCad[0].indexOf("google")==0 || arrayCad[0].indexOf("microsoft")==0 || arrayCad[0].indexOf("apple")==0 || arrayCad[0].indexOf("twitter")==0) {
+                if (arrayCad[0].indexOf("google") == 0 || arrayCad[0].indexOf("microsoft") == 0 || arrayCad[0].indexOf("apple") == 0 || arrayCad[0].indexOf("twitter") == 0) {
                     List<String> temp = Arrays.asList(arrayCad);
                     data.addLast(temp);
                 }
@@ -105,33 +110,38 @@ public class GestorFichero {
 
     public static void escribirFichero(LinkedList<List<String>> data, String newFile) {
         try {
-            String cadT = "", dir="src/fichero/" + newFile;
+            String cadT = "", dir = "src/fichero/" + newFile;
             File f = new File(dir);
-            System.out.println(f.getAbsolutePath());
-            if(!f.exists())
+            if (!f.exists()) {
                 f.createNewFile();
+            }
             BufferedWriter bw = new BufferedWriter(new FileWriter(dir));
             String t[] = firstLine.split(",");
             bw.write("@relation tuits\n\n");
-            bw.write("@attribute ' "+t[0]+"' {' google', ' apple', ' twitter', ' microsoft'}\n");
+            bw.write("@attribute ' " + t[0] + "' {' google', ' apple', ' twitter', ' microsoft'}\n");
             bw.write("@attribute ' class' {' positive', ' neutral',' negative', ' irrelevant'}\n");
-            bw.write("@attribute ' "+t[2]+"' numeric\n");
-            bw.write("@attribute ' "+t[3]+"' string\n");
-            bw.write("@attribute ' "+t[4]+"' string\n\n\n");
+            bw.write("@attribute ' " + t[2] + "' numeric\n");
+            bw.write("@attribute ' " + t[3] + "' string\n");
+            bw.write("@attribute ' " + t[4] + "' string\n\n\n");
             bw.write("@data\n");
             for (List<String> temp : data) {
-                cadT="";
-                for(int j=0;j<temp.size(); j++){
-                    if(j==0)
-                        cadT="' "+temp.get(j)+"'";
-                    else if(j==2)
-                        cadT=cadT+","+temp.get(j);
-                    else if (j==1 || j==3 || j==4){ 
-                        String te=temp.get(j).replace("'", "");
-                        cadT=cadT+",' "+te+"'";
+                cadT = "";
+                for (int j = 0; j < temp.size(); j++) {
+                    if (j == 0) {
+                        cadT = "' " + temp.get(j) + "'";
+                    } else if (j == 2) {
+                        cadT = cadT + "," + temp.get(j);
+                    } else if (j == 1 || j == 3 || j == 4) {
+                        if (j == 1 && newFile.equals("test.arff")) {
+                            String te = temp.get(j).replace("'", "");
+                            cadT = cadT + ",?";
+                        } else {
+                            String te = temp.get(j).replace("'", "");
+                            cadT = cadT + ",' " + te + "'";
+                        }
                     }
                 }
-                bw.write(cadT+"\n");
+                bw.write(cadT + "\n");
             }
             bw.close();
         } catch (IOException ex) {
