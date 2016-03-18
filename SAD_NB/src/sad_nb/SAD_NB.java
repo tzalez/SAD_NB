@@ -15,5 +15,18 @@ public class SAD_NB {
         Instances data = GestorFichero.getGestorFichero().cargarInstancias("src/fichero/dev.arff");
         System.out.println(data.numInstances());
         System.out.println(data.attribute(data.classIndex()).name());
+        
+        GestorFichero.getGestorFichero().escribirFichero(GestorFichero.getGestorFichero().leerFichero("src/fichero/tweetSentiment.test_blind.csv"), "test.arff");
+        Instances data2 = GestorFichero.getGestorFichero().cargarInstancias("src/fichero/test.arff");
+        System.out.println(data2.numInstances());
+        System.out.println(data2.attribute(data.classIndex()).name());
+        
+        GestorFichero.getGestorFichero().escribirFichero(GestorFichero.getGestorFichero().leerFichero("src/fichero/tweetSentiment.train.csv"), "train.arff");
+        Instances data3 = GestorFichero.getGestorFichero().cargarInstancias("src/fichero/train.arff");
+        System.out.println(data3.numInstances());
+        System.out.println(data3.attribute(data.classIndex()).name());
+        
+        
+    
     }
 }
