@@ -62,7 +62,7 @@ public class GestorFichero {
             if (ficheroARFF != null) {
                 Instances instancias = new Instances(ficheroARFF);
                 asignarClase(instancias);
-                ficheroARFF.close();
+                cerrarFichero();
                 return instancias;
             } else {
                 return null;
