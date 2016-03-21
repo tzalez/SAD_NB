@@ -8,19 +8,20 @@ import weka.classifiers.bayes.NaiveBayes;
 import weka.core.Instances;
 
 public class Baseline {
-    public Evaluation aplicarNaiveBayes(Instances data ){
+
+    public Evaluation aplicarNaiveBayes(Instances data) {
         try {
             NaiveBayes nb = new NaiveBayes();
-            Evaluation eval = new Evaluation(data);
-            
             nb.buildClassifier(data);
-            eval.crossValidateModel(nb, data,10, null, new Random(1));
+            
+            Evaluation eval = new Evaluation(data);
+            eval.crossValidateModel(nb, data, 2, new Random(1));
             return eval;
         } catch (Exception ex) {
             Logger.getLogger(Baseline.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Error al evaluar");
-        return null;
+            return null;
         }
     }
-    
+
 }

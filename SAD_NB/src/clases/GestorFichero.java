@@ -73,8 +73,9 @@ public class GestorFichero {
         }
     }
 
-    private void asignarClase(Instances data) {
-        for (int i = 0; i < data.numInstances(); i++) {
+    public static void asignarClase(Instances data) {
+        for (int i = 0; i < data.numAttributes(); i++) {
+            System.out.println(data.attribute(i).name());
             if (data.attribute(i).name().equals(" class")) {
                 data.setClassIndex(i);
                 break;

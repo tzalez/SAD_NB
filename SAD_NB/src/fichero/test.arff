@@ -3,8 +3,8 @@
 @attribute ' Topic' {' google', ' apple', ' twitter', ' microsoft'}
 @attribute ' class' {' positive', ' neutral',' negative', ' irrelevant'}
 @attribute ' TweetId' numeric
-@attribute ' TweetDate' string
-@attribute ' TweetText' string
+@attribute ' TweetDate' date ["dd-MM HH:mm:ss 'T' yyyy"]
+@attribute ' TweetText' String
 
 
 @data
