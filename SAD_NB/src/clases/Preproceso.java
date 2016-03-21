@@ -16,9 +16,9 @@ import weka.filters.unsupervised.instance.Randomize;
 public class Preproceso {
     public static Instances randomize(Instances data) throws Exception {
         Randomize ran = new Randomize();
-        //int a = (int) (Math.random() * 150 + 1);
         ran.setRandomSeed(42);
         ran.setInputFormat(data);
         return Filter.useFilter(data, ran);
     }
+    
 }
