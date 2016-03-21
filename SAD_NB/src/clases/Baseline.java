@@ -14,6 +14,7 @@ public class Baseline {
             NaiveBayes nb = new NaiveBayes();
             nb.buildClassifier(data);
             
+            
             Evaluation eval = new Evaluation(data);
             eval.crossValidateModel(nb, data, 2, new Random(1));
             return eval;
