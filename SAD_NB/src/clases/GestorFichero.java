@@ -121,8 +121,8 @@ public class GestorFichero {
             bw.write("@attribute ' " + t[0] + "' {' google', ' apple', ' twitter', ' microsoft'}\n");
             bw.write("@attribute ' class' {' positive', ' neutral',' negative', ' irrelevant'}\n");
             bw.write("@attribute ' " + t[2] + "' numeric\n");
-            bw.write("@attribute ' " + t[3] + "' string\n");
-            bw.write("@attribute ' " + t[4] + "' string\n\n\n");
+            bw.write("@attribute ' " + t[3] + "' String\n");
+            bw.write("@attribute ' " + t[4] + "' String\n\n\n");
             bw.write("@data\n");
             for (List<String> temp : data) {
                 cadT = "";
